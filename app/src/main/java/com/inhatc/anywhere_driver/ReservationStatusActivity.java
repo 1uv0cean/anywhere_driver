@@ -66,8 +66,8 @@ public class ReservationStatusActivity extends AppCompatActivity {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    insertStatus(myAdapter_1.getItem(position),"ride");
-                                    deleteStatus(myAdapter_1.getItem(position),"wait");
+                                    //insertStatus(myAdapter_1.getItem(position),"ride");
+                                    changeStatus(myAdapter_1.getItem(position),"ride");
 
                                 }
                             }
@@ -85,7 +85,7 @@ public class ReservationStatusActivity extends AppCompatActivity {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    deleteStatus(myAdapter_2.getItem(position),"ride");
+                                    changeStatus(myAdapter_2.getItem(position),"out");
                                 }
                             }
                         });
@@ -96,7 +96,7 @@ public class ReservationStatusActivity extends AppCompatActivity {
         mListView_on.setOnScrollListener(touchListener_2.makeScrollListener());
     }
 
-
+/*
     // Hwi
     // 상태 변경
     private void insertStatus(SampleData data, String status){
@@ -112,20 +112,21 @@ public class ReservationStatusActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(status).push().setValue(result);
     }
+ */
 
-    private void deleteStatus(SampleData data, String status){
+    private void changeStatus(SampleData data, String status){
         phone = data.getPhone();
         start = data.getStart();
         end = data.getEnd();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Query query = ref.child(status).orderByChild("phone").equalTo(phone);
+        Query query = ref.child("res").orderByChild("phone").equalTo(phone);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                    appleSnapshot.getRef().removeValue();
+                    appleSnapshot.getRef().child("status").setValue(status);
                 }
             }
 
@@ -140,7 +141,7 @@ public class ReservationStatusActivity extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        Query query = reference.child("wait");
+        Query query = reference.child("res").orderByChild("status").equalTo("wait");
         list_1 = new ArrayList<SampleData>();
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -175,7 +176,7 @@ public class ReservationStatusActivity extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        Query query = reference.child("ride");
+        Query query = reference.child("res").orderByChild("status").equalTo("ride");
         list_2 = new ArrayList<SampleData>();
         query.addValueEventListener(new ValueEventListener() {
             @Override
