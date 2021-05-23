@@ -14,26 +14,41 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="412dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
 
             <TextView
                 android:id="@+id/movieName"
-                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
                 android:layout_marginLeft="10sp"
+                android:layout_gravity="center"
                 android:text="TextView"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_gravity="center"
+                android:text="->"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/grade"
-                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20sp"
                 android:layout_marginLeft="10sp"
-                android:text="TextView" />
+                android:layout_gravity="center"
+                android:text="TextView"
+                android:textSize="20dp"/>
         </LinearLayout>
     </LinearLayout>
 
